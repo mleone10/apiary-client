@@ -1,4 +1,6 @@
 language: node_js
+node_js:
+    - "node"
 
 notifications:
     email: false
@@ -8,23 +10,8 @@ branches:
         - master
 cache:
     directories:
-        - frontend/node_modules
-
-before_install:
-    - cd frontend
+        - node_modules
 
 script:
     - npm run build
-
-before_deploy:
-    - cd ..
-
-deploy:
-    - provider: s3
-      skip_cleanup: true
-      access_key_id: $AWS_ACCESS_ID
-      secret_access_key: $AWS_ACCESS_KEY
-      bucket: "leone-apiary"
-      local_dir: dist
-      upload_dir: dist
 

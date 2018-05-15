@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/mleone10/apiary-client.svg?branch=master)](https://travis-ci.org/mleone10/apiary-client)
+
 # Apiary Client
 > Vue.js frontend for the Apiary project
 
