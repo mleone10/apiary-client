@@ -1,7 +1,7 @@
 {
-  "name": "frontend",
+  "name": "client",
   "version": "1.0.0",
-  "description": "Apiary frontend",
+  "description": "Vue frontend for the Apiary project",
   "author": "Mario Leone <mleone10@gmail.com>",
   "private": true,
   "scripts": {
