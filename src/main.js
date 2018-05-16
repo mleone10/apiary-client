@@ -1,12 +1,26 @@
 import Vue from 'vue'
-import App from './App'
+import Main from './Main'
+import Header from './Header'
+import Footer from './Footer'
 import router from './router'
 
 Vue.config.productionTip = false
 
 /* eslint-disable no-new */
 new Vue({
-  el: '#app',
+  el: '#main',
   router,
-  render: h => h(App)
+  render: h => h(Main)
+})
+
+new Vue({
+  el: '#header',
+  router,
+  render: h => h(Header)
+})
+
+new Vue({
+  el: '#footer',
+  router,
+  render: h => h(Footer)
 })
