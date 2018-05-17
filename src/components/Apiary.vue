@@ -66,10 +66,14 @@ export default {
     sellHoney () {
       this.money += this.honey
       this.honey = 0
+    },
+    spawnWorker () {
+      this.workerCount += this.queenCount * this.droneCount
     }
   },
   mounted: function () {
     setInterval(this.produceHoney, 500)
+    setInterval(this.spawnWorker, 1000)
   }
 }
 </script>
