@@ -3,6 +3,9 @@
     <p>
         Money: <span>{{ money }}</span>
     <p>
+    <p>
+        Honey: <span>{{ honey }}</span>
+    <p>
         Hives: <span>{{ hiveCount }}</span>
         <button v-if="money >= hiveCost" v-on:click="purchaseHive">Buy Hive - {{ hiveCost }}$</button>
     </p>
@@ -27,6 +30,7 @@ export default {
   data () {
     return {
       money: 100,
+      honey: 0,
       hiveCount: 0,
       queenCount: 0,
       droneCount: 0,
