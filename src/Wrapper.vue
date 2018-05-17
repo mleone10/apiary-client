@@ -1,5 +1,5 @@
 <template>
-  <div id="main">
+  <div id="wrapper">
     <router-view/>
   </div>
 </template>
@@ -11,6 +11,6 @@ export default {
 </script>
 
 <style>
-#main {
+#wrapper {
 }
 </style>
