@@ -1,26 +1,28 @@
 <template>
     <div id="apiary">
-    <p>
-        Money: <span>{{ money }}</span>
-    <p>
-    <p>
-        Honey: <span>{{ honey }}</span>
-    <p>
-        Hives: <span>{{ hiveCount }}</span>
+    <div>
+        Money: {{ money.toFixed(1) }}
+    </div>
+    <div>
+        Honey: {{ honey.toFixed(1) }}
+        <button v-if="honey > 0" v-on:click="sellHoney">Sell Honey</button>
+    </div>
+    <div>
+        Hives: {{ hiveCount }}
         <button v-if="money >= hiveCost" v-on:click="purchaseHive">Buy Hive - {{ hiveCost }}$</button>
-    </p>
-    <p>
-        Queens: <span>{{ queenCount }}</span>
+    </div>
+    <div>
+        Queens: {{ queenCount }}
         <button v-if="money >= queenCost" v-on:click="purchaseQueen">Buy Queen - {{ queenCost }}$</button>
-    </p>
-    <p>
-        Drones: <span>{{ droneCount }}</span>
+    </div>
+    <div>
+        Drones: {{ droneCount }}
         <button v-if="money >= droneCost" v-on:click="purchaseDrone">Buy Drone - {{ droneCost }}$</button>
-    </p>
-    <p>
-        Workers: <span>{{ workerCount }}</span>
+    </div>
+    <div>
+        Workers: {{ workerCount }}
         <button v-if="money >= workerCost" v-on:click="purchaseWorker">Buy Worker - {{ workerCost }}$</button>
-    </p>
+    </div>
     </div>
 </template>
 
@@ -31,7 +33,7 @@ export default {
     return {
       money: 100,
       honey: 0,
-      hiveCount: 0,
+      hiveCount: 1,
       queenCount: 0,
       droneCount: 0,
       workerCount: 0,
@@ -57,7 +59,17 @@ export default {
     purchaseWorker () {
       this.money -= this.workerCost
       this.workerCount++
+    },
+    produceHoney () {
+      this.honey += this.workerCount * 0.1
+    },
+    sellHoney () {
+      this.money += this.honey
+      this.honey = 0
     }
+  },
+  mounted: function () {
+    setInterval(this.produceHoney, 500)
   }
 }
 </script>
