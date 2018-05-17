@@ -12,7 +12,5 @@ export default {
 
 <style>
 #main {
-    padding-top: 75px;
-    padding-bottom: 50px;
 }
 </style>

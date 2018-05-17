@@ -1,13 +1,12 @@
 <template>
-    <div id="apiary">
+    <div id="template">
     </div>
 </template>
 
 <script>
-export default {
-  name: 'Apiary'
-}
 </script>
 
 <style>
+#template {
+}
 </style>
