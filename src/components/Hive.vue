@@ -5,10 +5,6 @@
         <button v-if="honey > 0" v-on:click="sellHoney">Sell Honey</button>
     </div>
     <div>
-        Hives: {{ hiveCount }}
-        <button v-if="this.parentMoney >= hiveCost" v-on:click="purchaseHive">Buy Hive - {{ hiveCost }}$</button>
-    </div>
-    <div>
         Queens: {{ queenCount }}
         <button v-if="this.parentMoney >= queenCost" v-on:click="purchaseQueen">Buy Queen - {{ queenCost }}$</button>
     </div>
@@ -29,11 +25,9 @@ export default {
   data () {
     return {
       honey: 0,
-      hiveCount: 1,
       queenCount: 0,
       droneCount: 0,
       workerCount: 0,
-      hiveCost: 50,
       queenCost: 10,
       droneCost: 5,
       workerCost: 1
@@ -43,10 +37,6 @@ export default {
     'parentMoney'
   ],
   methods: {
-    purchaseHive () {
-      this.emitPurchase(this.hiveCost)
-      this.hiveCount++
-    },
     purchaseQueen () {
       this.emitPurchase(this.queenCost)
       this.queenCount++
