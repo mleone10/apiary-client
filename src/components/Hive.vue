@@ -1,9 +1,6 @@
 <template>
     <div class="hive">
     <div>
-        Money: {{ money.toFixed(1) }}
-    </div>
-    <div>
         Honey: {{ honey.toFixed(1) }}
         <button v-if="honey > 0" v-on:click="sellHoney">Sell Honey</button>
     </div>
@@ -31,7 +28,7 @@ export default {
   name: 'Hive',
   data () {
     return {
-      money: 100,
+      money: this.parentMoney,
       honey: 0,
       hiveCount: 1,
       queenCount: 0,
@@ -43,21 +40,24 @@ export default {
       workerCost: 1
     }
   },
+  props: [
+    'parentMoney'
+  ],
   methods: {
     purchaseHive () {
-      this.money -= this.hiveCost
+      this.emitPurchase(this.hiveCost)
       this.hiveCount++
     },
     purchaseQueen () {
-      this.money -= this.queenCost
+      this.emitPurchase(this.queenCost)
       this.queenCount++
     },
     purchaseDrone () {
-      this.money -= this.droneCost
+      this.emitPurchase(this.droneCost)
       this.droneCount++
     },
     purchaseWorker () {
-      this.money -= this.workerCost
+      this.emitPurchase(this.workerCost)
       this.workerCount++
     },
     produceHoney () {
@@ -69,6 +69,9 @@ export default {
     },
     spawnWorker () {
       this.workerCount += this.queenCount * this.droneCount
+    },
+    emitPurchase (cost) {
+      this.$emit('emit-purchase', cost)
     }
   },
   mounted: function () {
