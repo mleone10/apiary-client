@@ -3,9 +3,9 @@
         <div>
             Money: {{ money.toFixed(1) }}
         </div>
-        <hive v-bind:parentMoney="money" v-on:emit-purchase="processPurchase"></hive>
-        <hive v-bind:parentMoney="money" v-on:emit-purchase="processPurchase"></hive>
-        <hive v-bind:parentMoney="money" v-on:emit-purchase="processPurchase"></hive>
+        <hive v-bind:parentMoney="money" v-on:emit-purchase="processPurchase" v-on:emit-sell-honey="sellHoney"></hive>
+        <hive v-bind:parentMoney="money" v-on:emit-purchase="processPurchase" v-on:emit-sell-honey="sellHoney"></hive>
+        <hive v-bind:parentMoney="money" v-on:emit-purchase="processPurchase" v-on:emit-sell-honey="sellHoney"></hive>
     </div>
 </template>
 
@@ -25,6 +25,9 @@ export default {
   methods: {
     processPurchase (cost) {
       this.money -= cost
+    },
+    sellHoney (honeyProfit) {
+      this.money += honeyProfit
     }
   }
 }

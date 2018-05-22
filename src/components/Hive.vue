@@ -6,19 +6,19 @@
     </div>
     <div>
         Hives: {{ hiveCount }}
-        <button v-if="money >= hiveCost" v-on:click="purchaseHive">Buy Hive - {{ hiveCost }}$</button>
+        <button v-if="this.parentMoney >= hiveCost" v-on:click="purchaseHive">Buy Hive - {{ hiveCost }}$</button>
     </div>
     <div>
         Queens: {{ queenCount }}
-        <button v-if="money >= queenCost" v-on:click="purchaseQueen">Buy Queen - {{ queenCost }}$</button>
+        <button v-if="this.parentMoney >= queenCost" v-on:click="purchaseQueen">Buy Queen - {{ queenCost }}$</button>
     </div>
     <div>
         Drones: {{ droneCount }}
-        <button v-if="money >= droneCost" v-on:click="purchaseDrone">Buy Drone - {{ droneCost }}$</button>
+        <button v-if="this.parentMoney >= droneCost" v-on:click="purchaseDrone">Buy Drone - {{ droneCost }}$</button>
     </div>
     <div>
         Workers: {{ workerCount }}
-        <button v-if="money >= workerCost" v-on:click="purchaseWorker">Buy Worker - {{ workerCost }}$</button>
+        <button v-if="this.parentMoney >= workerCost" v-on:click="purchaseWorker">Buy Worker - {{ workerCost }}$</button>
     </div>
     </div>
 </template>
@@ -28,7 +28,6 @@ export default {
   name: 'Hive',
   data () {
     return {
-      money: this.parentMoney,
       honey: 0,
       hiveCount: 1,
       queenCount: 0,
@@ -63,12 +62,12 @@ export default {
     produceHoney () {
       this.honey += this.workerCount * 0.1
     },
-    sellHoney () {
-      this.money += this.honey
-      this.honey = 0
-    },
     spawnWorker () {
       this.workerCount += this.queenCount * this.droneCount
+    },
+    sellHoney () {
+      this.$emit('emit-sell-honey', this.honey)
+      this.honey = 0
     },
     emitPurchase (cost) {
       this.$emit('emit-purchase', cost)
