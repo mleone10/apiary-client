@@ -1,20 +1,15 @@
 <template>
     <div class="hive">
     <div>
-        Honey: {{ honey.toFixed(1) }}
-        <button v-if="honey > 0" v-on:click="sellHoney">Sell Honey</button>
+        Honey: {{ this.hive.honey.toFixed(1) }}
+        <button v-if="hive.honey > 0" v-on:click="sellHoney">Sell Honey</button>
     </div>
     <div>
-        Queens: {{ queenCount }}
-        <button v-if="this.parentMoney >= queenCost" v-on:click="purchaseQueen">Buy Queen - {{ queenCost }}$</button>
+        Drones: {{ this.hive.droneCount }}
+        <button v-if="this.parentMoney >= this.costs.drone" v-on:click="purchaseDrone">Buy Drone - {{ this.costs.drone }}$</button>
     </div>
     <div>
-        Drones: {{ droneCount }}
-        <button v-if="this.parentMoney >= droneCost" v-on:click="purchaseDrone">Buy Drone - {{ droneCost }}$</button>
-    </div>
-    <div>
-        Workers: {{ workerCount }}
-        <button v-if="this.parentMoney >= workerCost" v-on:click="purchaseWorker">Buy Worker - {{ workerCost }}$</button>
+        Workers: {{ this.hive.workerCount }} <button v-if="this.parentMoney >= this.costs.worker" v-on:click="purchaseWorker">Buy Worker - {{ this.costs.worker }}$</button>
     </div>
     </div>
 </template>
@@ -22,42 +17,34 @@
 <script>
 export default {
   name: 'Hive',
-  data () {
-    return {
-      honey: 0,
-      queenCount: 0,
-      droneCount: 0,
-      workerCount: 0,
-      queenCost: 10,
-      droneCost: 5,
-      workerCost: 1
-    }
-  },
   props: [
+    'hive',
+    'costs',
     'parentMoney'
   ],
   methods: {
-    purchaseQueen () {
-      this.emitPurchase(this.queenCost)
-      this.queenCount++
-    },
     purchaseDrone () {
-      this.emitPurchase(this.droneCost)
-      this.droneCount++
+      this.emitPurchase(this.costs.drone)
+      this.hive.droneCount++
     },
     purchaseWorker () {
-      this.emitPurchase(this.workerCost)
-      this.workerCount++
+      this.emitPurchase(this.costs.worker)
+      this.hive.workerCount++
     },
     produceHoney () {
-      this.honey += this.workerCount * 0.1
+      this.hive.honey += this.hive.workerCount * 0.1
     },
     spawnWorker () {
-      this.workerCount += this.queenCount * this.droneCount
+      var numNewWorkers = this.hive.droneCount
+      if (this.hive.workerCount + numNewWorkers < 100) {
+        this.hive.workerCount += this.hive.droneCount
+      } else {
+        this.hive.workerCount = 100
+      }
     },
     sellHoney () {
-      this.$emit('emit-sell-honey', this.honey)
-      this.honey = 0
+      this.$emit('emit-sell-honey', this.hive.honey)
+      this.hive.honey = 0
     },
     emitPurchase (cost) {
       this.$emit('emit-purchase', cost)
